@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.checkins.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.checkin.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Checkin', 'route' => 'admin.checkins.parseCsvImport'])
         </div>
     </div>
 @endcan
