@@ -1,12 +1,11 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
-
-    <div class="c-sidebar-brand d-md-down-none">
+ <div class="c-sidebar-brand d-md-down-none"style="background-color: rgba(68,62,62,1);">
         <a class="c-sidebar-brand-full h4" href="#">
             {{ trans('panel.site_title') }}
         </a>
     </div>
 
-    <ul class="c-sidebar-nav">
+    <ul class="c-sidebar-nav" style="background-color:gray;">
         <li>
             <select class="searchable-field form-control">
 
