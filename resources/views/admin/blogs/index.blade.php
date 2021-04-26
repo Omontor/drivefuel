@@ -32,9 +32,6 @@
                             {{ trans('cruds.blog.fields.excerpt') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blog.fields.content') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.blog.fields.thumb_image') }}
                         </th>
                         <th>
@@ -49,9 +46,6 @@
                     </tr>
                     <tr>
                         <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -86,9 +80,6 @@
                             </td>
                             <td>
                                 {{ $blog->excerpt ?? '' }}
-                            </td>
-                            <td>
-                                {{ $blog->content ?? '' }}
                             </td>
                             <td>
                                 @if($blog->thumb_image)
