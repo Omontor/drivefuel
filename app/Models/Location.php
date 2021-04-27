@@ -14,6 +14,10 @@ class Location extends Model
 
     public $table = 'locations';
 
+    public static $searchable = [
+        'name',
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
