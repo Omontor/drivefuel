@@ -31,6 +31,7 @@ class Witnesspost extends Model implements HasMedia
     protected $fillable = [
         'witness_id',
         'event_id',
+        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -62,6 +63,11 @@ class Witnesspost extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

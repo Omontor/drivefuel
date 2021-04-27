@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCheckoutRequest;
 use App\Http\Requests\StoreCheckoutRequest;
 use App\Http\Requests\UpdateCheckoutRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckoutController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('checkout_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

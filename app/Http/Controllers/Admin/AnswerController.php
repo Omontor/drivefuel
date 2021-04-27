@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyAnswerRequest;
 use App\Http\Requests\StoreAnswerRequest;
 use App\Http\Requests\UpdateAnswerRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AnswerController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('answer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

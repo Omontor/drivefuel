@@ -20,6 +20,11 @@ class User extends Authenticatable
 
     public $table = 'users';
 
+    public static $searchable = [
+        'name',
+        'email',
+    ];
+
     protected $hidden = [
         'remember_token',
         'password',

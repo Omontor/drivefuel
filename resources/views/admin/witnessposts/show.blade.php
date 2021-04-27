@@ -51,6 +51,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.witnesspost.fields.user') }}
+                        </th>
+                        <td>
+                            {{ $witnesspost->user->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
