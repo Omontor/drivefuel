@@ -35,6 +35,9 @@
                             {{ trans('cruds.witnesspost.fields.images') }}
                         </th>
                         <th>
+                            {{ trans('cruds.witnesspost.fields.user') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -63,6 +66,14 @@
                         <td>
                         </td>
                         <td>
+                            <select class="search">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach($users as $key => $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </thead>
@@ -87,6 +98,9 @@
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $witnesspost->user->name ?? '' }}
                             </td>
                             <td>
                                 @can('witnesspost_show')
