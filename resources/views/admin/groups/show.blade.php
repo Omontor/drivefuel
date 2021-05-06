@@ -39,6 +39,16 @@
                             {{ $group->client->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.group.fields.users') }}
+                        </th>
+                        <td>
+                            @foreach($group->users as $key => $users)
+                                <span class="label label-info">{{ $users->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

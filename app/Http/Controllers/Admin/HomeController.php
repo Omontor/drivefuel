@@ -422,35 +422,6 @@ class HomeController
 
         $chart13 = new LaravelChart($settings13);
 
-        $settings14 = [
-            'chart_title'           => 'Últimos testigos',
-            'chart_type'            => 'latest_entries',
-            'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\Witnesspost',
-            'group_by_field'        => 'created_at',
-            'group_by_period'       => 'day',
-            'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
-            'group_by_field_format' => 'm/d/Y H:i:s',
-            'column_class'          => 'col-md-12',
-            'entries_number'        => '10',
-            'fields'                => [
-                'images' => '',
-            ],
-            'translation_key' => 'witnesspost',
-        ];
-
-        $settings14['data'] = [];
-        if (class_exists($settings14['model'])) {
-            $settings14['data'] = $settings14['model']::latest()
-                ->take($settings14['entries_number'])
-                ->get();
-        }
-
-        if (!array_key_exists('fields', $settings14)) {
-            $settings14['fields'] = [];
-        }
-
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13', 'settings14'));
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13'));
     }
 }
