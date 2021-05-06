@@ -20,7 +20,7 @@ class WitnesspostApiController extends Controller
     {
         abort_if(Gate::denies('witnesspost_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WitnesspostResource(Witnesspost::with(['witness', 'event'])->get());
+        return new WitnesspostResource(Witnesspost::with(['witness', 'event', 'user'])->get());
     }
 
     public function store(StoreWitnesspostRequest $request)
@@ -40,7 +40,7 @@ class WitnesspostApiController extends Controller
     {
         abort_if(Gate::denies('witnesspost_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new WitnesspostResource($witnesspost->load(['witness', 'event']));
+        return new WitnesspostResource($witnesspost->load(['witness', 'event', 'user']));
     }
 
     public function update(UpdateWitnesspostRequest $request, Witnesspost $witnesspost)

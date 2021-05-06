@@ -33,6 +33,13 @@ class UpdateEventRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'users.*' => [
+                'integer',
+            ],
+            'users' => [
+                'required',
+                'array',
+            ],
         ];
     }
 }
