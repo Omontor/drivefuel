@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -16,9 +17,15 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
+    use Auditable;
     use HasFactory;
 
     public $table = 'users';
+
+    public static $searchable = [
+        'name',
+        'email',
+    ];
 
     protected $hidden = [
         'remember_token',
@@ -62,6 +69,16 @@ class User extends Authenticatable
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);
+    }
+
+    public function usersGroups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
+    public function usersEvents()
+    {
+        return $this->belongsToMany(Event::class);
     }
 
     public function getEmailVerifiedAtAttribute($value)

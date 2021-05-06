@@ -37,6 +37,9 @@
                             {{ trans('cruds.event.fields.route') }}
                         </th>
                         <th>
+                            {{ trans('cruds.event.fields.users') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -61,6 +64,11 @@
                             </td>
                             <td>
                                 {{ $event->route->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($event->users as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('event_show')
@@ -138,6 +146,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 })
 
