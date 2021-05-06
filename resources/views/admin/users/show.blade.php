@@ -96,6 +96,16 @@
                 {{ trans('cruds.userAlert.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#users_groups" role="tab" data-toggle="tab">
+                {{ trans('cruds.group.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#users_events" role="tab" data-toggle="tab">
+                {{ trans('cruds.event.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="user_checkins">
@@ -106,6 +116,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="users_groups">
+            @includeIf('admin.users.relationships.usersGroups', ['groups' => $user->usersGroups])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="users_events">
+            @includeIf('admin.users.relationships.usersEvents', ['events' => $user->usersEvents])
         </div>
     </div>
 </div>

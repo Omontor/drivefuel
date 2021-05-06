@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.events.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.event.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Event', 'route' => 'admin.events.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -38,6 +42,9 @@
                             {{ trans('cruds.event.fields.route') }}
                         </th>
                         <th>
+                            {{ trans('cruds.event.fields.users') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -57,6 +64,14 @@
                             <select class="search">
                                 <option value>{{ trans('global.all') }}</option>
                                 @foreach($routes as $key => $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach($users as $key => $item)
                                     <option value="{{ $item->name }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
@@ -85,6 +100,11 @@
                             </td>
                             <td>
                                 {{ $event->route->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($event->users as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('event_show')
@@ -165,6 +185,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
