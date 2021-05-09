@@ -55,6 +55,16 @@
                             {{ $event->route->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.event.fields.users') }}
+                        </th>
+                        <td>
+                            @foreach($event->users as $key => $users)
+                                <span class="label label-info">{{ $users->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

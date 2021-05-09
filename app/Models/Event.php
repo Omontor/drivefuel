@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Event extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'events';
@@ -50,6 +52,11 @@ class Event extends Model
     public function route()
     {
         return $this->belongsTo(Route::class, 'route_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(Group::class);
     }
 
     protected function serializeDate(DateTimeInterface $date)
