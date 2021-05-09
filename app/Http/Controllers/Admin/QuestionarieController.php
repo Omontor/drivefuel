@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyQuestionarieRequest;
 use App\Http\Requests\StoreQuestionarieRequest;
 use App\Http\Requests\UpdateQuestionarieRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class QuestionarieController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('questionarie_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
