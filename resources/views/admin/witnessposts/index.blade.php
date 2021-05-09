@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.witnessposts.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.witnesspost.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Witnesspost', 'route' => 'admin.witnessposts.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -33,6 +37,9 @@
                         </th>
                         <th>
                             {{ trans('cruds.witnesspost.fields.images') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.witnesspost.fields.user') }}
                         </th>
                         <th>
                             &nbsp;
@@ -63,6 +70,14 @@
                         <td>
                         </td>
                         <td>
+                            <select class="search">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach($users as $key => $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </thead>
@@ -87,6 +102,9 @@
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $witnesspost->user->name ?? '' }}
                             </td>
                             <td>
                                 @can('witnesspost_show')
@@ -167,6 +185,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {

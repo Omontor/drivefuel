@@ -21,20 +21,6 @@
                 <span class="help-block">{{ trans('cruds.location.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="event_id">{{ trans('cruds.location.fields.event') }}</label>
-                <select class="form-control select2 {{ $errors->has('event') ? 'is-invalid' : '' }}" name="event_id" id="event_id" required>
-                    @foreach($events as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('event_id') ? old('event_id') : $location->event->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('event'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('event') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.location.fields.event_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="lat">{{ trans('cruds.location.fields.lat') }}</label>
                 <input class="form-control {{ $errors->has('lat') ? 'is-invalid' : '' }}" type="text" name="lat" id="lat" value="{{ old('lat', $location->lat) }}" required>
                 @if($errors->has('lat'))

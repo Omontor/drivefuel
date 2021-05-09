@@ -33,14 +33,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.location.fields.event') }}
-                        </th>
-                        <td>
-                            {{ $location->event->date ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.location.fields.lat') }}
                         </th>
                         <td>
@@ -66,6 +58,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#location_events" role="tab" data-toggle="tab">
+                {{ trans('cruds.event.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="location_events">
+            @includeIf('admin.locations.relationships.locationEvents', ['events' => $location->locationEvents])
+        </div>
+    </div>
+</div>
 
 @endsection
