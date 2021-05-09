@@ -11,6 +11,8 @@ class AddRelationshipFieldsToEventsTable extends Migration
         Schema::table('events', function (Blueprint $table) {
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id', 'route_fk_3763944')->references('id')->on('routes');
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id', 'location_fk_3871342')->references('id')->on('locations');
         });
     }
 }

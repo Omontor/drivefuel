@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.blogs.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.blog.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Blog', 'route' => 'admin.blogs.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -32,9 +36,6 @@
                             {{ trans('cruds.blog.fields.excerpt') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blog.fields.content') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.blog.fields.thumb_image') }}
                         </th>
                         <th>
@@ -49,9 +50,6 @@
                     </tr>
                     <tr>
                         <td>
-                        </td>
-                        <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -86,9 +84,6 @@
                             </td>
                             <td>
                                 {{ $blog->excerpt ?? '' }}
-                            </td>
-                            <td>
-                                {{ $blog->content ?? '' }}
                             </td>
                             <td>
                                 @if($blog->thumb_image)
@@ -190,6 +185,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {

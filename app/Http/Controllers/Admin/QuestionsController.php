@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyQuestionRequest;
 use App\Http\Requests\StoreQuestionRequest;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class QuestionsController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {

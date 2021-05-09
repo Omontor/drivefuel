@@ -21,8 +21,8 @@
                 <span class="help-block">{{ trans('cruds.questionarie.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="project_id">{{ trans('cruds.questionarie.fields.project') }}</label>
-                <select class="form-control select2 {{ $errors->has('project') ? 'is-invalid' : '' }}" name="project_id" id="project_id">
+                <label class="required" for="project_id">{{ trans('cruds.questionarie.fields.project') }}</label>
+                <select class="form-control select2 {{ $errors->has('project') ? 'is-invalid' : '' }}" name="project_id" id="project_id" required>
                     @foreach($projects as $id => $entry)
                         <option value="{{ $id }}" {{ (old('project_id') ? old('project_id') : $questionarie->project->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach

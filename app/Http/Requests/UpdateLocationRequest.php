@@ -21,10 +21,6 @@ class UpdateLocationRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'event_id' => [
-                'required',
-                'integer',
-            ],
             'lat' => [
                 'string',
                 'required',

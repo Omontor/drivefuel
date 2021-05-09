@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTriviaRequest;
 use App\Http\Requests\StoreTriviaRequest;
 use App\Http\Requests\UpdateTriviaRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TriviaController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('trivia_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

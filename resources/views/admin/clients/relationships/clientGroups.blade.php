@@ -31,6 +31,9 @@
                             {{ trans('cruds.group.fields.client') }}
                         </th>
                         <th>
+                            {{ trans('cruds.group.fields.users') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -49,6 +52,11 @@
                             </td>
                             <td>
                                 {{ $group->client->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($group->users as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('group_show')
@@ -126,6 +134,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 })
 

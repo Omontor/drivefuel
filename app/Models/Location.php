@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,9 +11,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Location extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'locations';
+
+    public static $searchable = [
+        'name',
+    ];
 
     protected $dates = [
         'created_at',
@@ -22,7 +28,6 @@ class Location extends Model
 
     protected $fillable = [
         'name',
-        'event_id',
         'lat',
         'lng',
         'created_at',
@@ -30,9 +35,9 @@ class Location extends Model
         'deleted_at',
     ];
 
-    public function event()
+    public function locationEvents()
     {
-        return $this->belongsTo(Event::class, 'event_id');
+        return $this->hasMany(Event::class, 'location_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

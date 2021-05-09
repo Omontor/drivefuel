@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.users.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'User', 'route' => 'admin.users.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -35,10 +39,13 @@
                             {{ trans('cruds.user.fields.email_verified_at') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.roles') }}
+                            {{ trans('cruds.user.fields.approved') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.group') }}
+                            {{ trans('cruds.user.fields.verified') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
                             &nbsp;
@@ -60,18 +67,14 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($roles as $key => $item)
-                                    <option value="{{ $item->title }}">{{ $item->title }}</option>
-                                @endforeach
-                            </select>
+                        </td>
+                        <td>
                         </td>
                         <td>
                             <select class="search">
                                 <option value>{{ trans('global.all') }}</option>
-                                @foreach($groups as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @foreach($roles as $key => $item)
+                                    <option value="{{ $item->title }}">{{ $item->title }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -98,12 +101,17 @@
                                 {{ $user->email_verified_at ?? '' }}
                             </td>
                             <td>
+                                <span style="display:none">{{ $user->approved ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $user->approved ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <span style="display:none">{{ $user->verified ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $user->verified ? 'checked' : '' }}>
+                            </td>
+                            <td>
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
-                            </td>
-                            <td>
-                                {{ $user->group->name ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')
@@ -184,6 +192,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {

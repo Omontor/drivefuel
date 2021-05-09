@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyWitnesspostRequest;
 use App\Http\Requests\StoreWitnesspostRequest;
 use App\Http\Requests\UpdateWitnesspostRequest;
 use App\Models\Event;
+use App\Models\User;
 use App\Models\Witness;
 use App\Models\Witnesspost;
 use Gate;
@@ -18,18 +20,21 @@ use Symfony\Component\HttpFoundation\Response;
 class WitnesspostController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {
         abort_if(Gate::denies('witnesspost_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $witnessposts = Witnesspost::with(['witness', 'event', 'media'])->get();
+        $witnessposts = Witnesspost::with(['witness', 'event', 'user', 'media'])->get();
 
         $witnesses = Witness::get();
 
         $events = Event::get();
 
-        return view('admin.witnessposts.index', compact('witnessposts', 'witnesses', 'events'));
+        $users = User::get();
+
+        return view('admin.witnessposts.index', compact('witnessposts', 'witnesses', 'events', 'users'));
     }
 
     public function create()
@@ -40,7 +45,9 @@ class WitnesspostController extends Controller
 
         $events = Event::all()->pluck('date', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.witnessposts.create', compact('witnesses', 'events'));
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.witnessposts.create', compact('witnesses', 'events', 'users'));
     }
 
     public function store(StoreWitnesspostRequest $request)
@@ -66,9 +73,11 @@ class WitnesspostController extends Controller
 
         $events = Event::all()->pluck('date', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $witnesspost->load('witness', 'event');
+        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.witnessposts.edit', compact('witnesses', 'events', 'witnesspost'));
+        $witnesspost->load('witness', 'event', 'user');
+
+        return view('admin.witnessposts.edit', compact('witnesses', 'events', 'users', 'witnesspost'));
     }
 
     public function update(UpdateWitnesspostRequest $request, Witnesspost $witnesspost)
@@ -96,7 +105,7 @@ class WitnesspostController extends Controller
     {
         abort_if(Gate::denies('witnesspost_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $witnesspost->load('witness', 'event');
+        $witnesspost->load('witness', 'event', 'user');
 
         return view('admin.witnessposts.show', compact('witnesspost'));
     }

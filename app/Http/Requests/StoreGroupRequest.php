@@ -25,6 +25,12 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'users.*' => [
+                'integer',
+            ],
+            'users' => [
+                'array',
+            ],
         ];
     }
 }
