@@ -57,14 +57,6 @@
                             @endforeach
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.group') }}
-                        </th>
-                        <td>
-                            {{ $user->group->name ?? '' }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -92,8 +84,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#user_witnessposts" role="tab" data-toggle="tab">
+                {{ trans('cruds.witnesspost.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#users_groups" role="tab" data-toggle="tab">
+                {{ trans('cruds.group.title') }}
             </a>
         </li>
     </ul>
@@ -104,8 +106,14 @@
         <div class="tab-pane" role="tabpanel" id="user_checkouts">
             @includeIf('admin.users.relationships.userCheckouts', ['checkouts' => $user->userCheckouts])
         </div>
+        <div class="tab-pane" role="tabpanel" id="user_witnessposts">
+            @includeIf('admin.users.relationships.userWitnessposts', ['witnessposts' => $user->userWitnessposts])
+        </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="users_groups">
+            @includeIf('admin.users.relationships.usersGroups', ['groups' => $user->usersGroups])
         </div>
     </div>
 </div>

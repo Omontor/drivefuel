@@ -34,6 +34,24 @@
                 <span class="help-block">{{ trans('cruds.group.fields.client_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="users">{{ trans('cruds.group.fields.users') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('users') ? 'is-invalid' : '' }}" name="users[]" id="users" multiple>
+                    @foreach($users as $id => $users)
+                        <option value="{{ $id }}" {{ in_array($id, old('users', [])) ? 'selected' : '' }}>{{ $users }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('users'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('users') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.group.fields.users_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

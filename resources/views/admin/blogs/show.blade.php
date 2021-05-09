@@ -52,7 +52,7 @@
                             {{ trans('cruds.blog.fields.content') }}
                         </th>
                         <td>
-                            {{ $blog->content }}
+                            {!! $blog->content !!}
                         </td>
                     </tr>
                     <tr>
