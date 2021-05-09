@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.tests.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.test.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Test', 'route' => 'admin.tests.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -182,6 +186,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {

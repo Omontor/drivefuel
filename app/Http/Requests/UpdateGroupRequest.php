@@ -25,6 +25,12 @@ class UpdateGroupRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'users.*' => [
+                'integer',
+            ],
+            'users' => [
+                'array',
+            ],
         ];
     }
 }

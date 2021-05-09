@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.users.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'User', 'route' => 'admin.users.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -38,9 +42,6 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.group') }}
-                        </th>
-                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -64,14 +65,6 @@
                                 <option value>{{ trans('global.all') }}</option>
                                 @foreach($roles as $key => $item)
                                     <option value="{{ $item->title }}">{{ $item->title }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($groups as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -101,9 +94,6 @@
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
-                            </td>
-                            <td>
-                                {{ $user->group->name ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')
@@ -184,6 +174,9 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
+  $('div#sidebar').on('transitionend', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+  })
   
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {

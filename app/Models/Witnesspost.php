@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,7 @@ class Witnesspost extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
+    use Auditable;
     use HasFactory;
 
     public $table = 'witnessposts';
@@ -31,6 +33,7 @@ class Witnesspost extends Model implements HasMedia
     protected $fillable = [
         'witness_id',
         'event_id',
+        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -62,6 +65,11 @@ class Witnesspost extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)
