@@ -44,21 +44,23 @@ class QuestionarieController extends Controller
         return redirect()->route('admin.questionaries.index');
     }
 
-    public function edit(Questionarie $questionarie)
+    public function edit(Questionarie $questionarie, $id)
     {
         abort_if(Gate::denies('questionarie_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $projects = Project::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $questionarie->load('project');
+        $quest = Questionarie::find($id);
 
-        return view('admin.questionaries.edit', compact('projects', 'questionarie'));
+        return view('admin.questionaries.edit', compact('projects', 'questionarie', 'quest'));
     }
 
-    public function update(UpdateQuestionarieRequest $request, Questionarie $questionarie)
+    public function update(UpdateQuestionarieRequest $request)
     {
-        $questionarie->update($request->all());
 
+        $questionarie = Questionarie::find($request->id);
+        $questionarie->update($request->all());
         return redirect()->route('admin.questionaries.index');
     }
 

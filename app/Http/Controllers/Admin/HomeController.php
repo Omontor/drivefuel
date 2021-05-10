@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Models\Checkin;
+use App\Models\Checkout;
+
 
 class HomeController
 {
@@ -468,7 +471,6 @@ class HomeController
             'fields'                => [
                 'id'          => '',
                 'title'       => '',
-                'thumb_image' => '',
                 'created_at'  => '',
             ],
             'translation_key' => 'blog',
@@ -485,6 +487,10 @@ class HomeController
             $settings15['fields'] = [];
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13', 'settings14', 'settings15'));
+        $checkins = Checkin::all();
+        $checkouts = Checkout::all();
+
+
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13', 'settings14', 'settings15', 'checkins', 'checkouts'));
     }
 }

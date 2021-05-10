@@ -1,20 +1,37 @@
-@extends('layouts.app')
-@section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mx-4">
-            <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Fuel</title>
+    <link rel="stylesheet" type="text/css" href="/logtemplate/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/logtemplate/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/logtemplate/css/iofrm-style.css">
+    <link rel="stylesheet" type="text/css" href="/logtemplate/css/iofrm-theme19.css">
+</head>
+<body>
+    <div class="form-body without-side">
 
-                <p class="text-muted">{{ trans('global.login') }}</p>
 
-                @if(session('message'))
-                    <div class="alert alert-info" role="alert">
-                        {{ session('message') }}
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('login') }}">
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+                    <img src="/img/3.png" alt="">
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                                    <a href="/">
+          
+                    <img class="logo-size" src="/img/logo.png" alt="" style="width: 300px; padding: 30px;">
+              
+            </a>
+            <hr>
+                        <h3>Formulario de acceso</h3>
+                        <p>Ingresa tus credenciales para accesar a <strong>Drive Fuel</strong></p>
+                      <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="input-group mb-3">
@@ -48,34 +65,49 @@
                     </div>
 
                     <div class="input-group mb-4">
+                        <center>
                         <div class="form-check checkbox">
                             <input class="form-check-input" name="remember" type="checkbox" id="remember" style="vertical-align: middle;" />
                             <label class="form-check-label" for="remember" style="vertical-align: middle;">
                                 {{ trans('global.remember_me') }}
                             </label>
                         </div>
+                        </center>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary px-4">
+                        <div class="col-12">
+                            <center>
+                            <button type="submit" class="btn btn-success px-4">
                                 {{ trans('global.login') }}
                             </button>
+                            </center>
                         </div>
-                        <div class="col-6 text-right">
+                        <hr>
+                        <div class="col-12 text-center" >
                             @if(Route::has('password.request'))
-                                <a class="btn btn-link px-0" href="{{ route('password.request') }}">
+                                <a class="btn btn-link px-0" href="{{ route('password.request') }}" style="color: green;">
                                     {{ trans('global.forgot_password') }}
                                 </a><br>
                             @endif
-                            <a class="btn btn-link px-0" href="{{ route('register') }}">
-                                {{ trans('global.register') }}
-                            </a>
+
                         </div>
                     </div>
                 </form>
+                        <!-- reenable para registro
+                        <div class="page-links">
+                            <a href="register19.html">Register new account</a>
+                        </div>
+                    -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+<script src="/logtemplate/js/jquery.min.js"></script>
+<script src="/logtemplate/js/popper.min.js"></script>
+<script src="/logtemplate/js/bootstrap.min.js"></script>
+<script src="/logtemplate/js/main.js"></script>
+</body>
+</html>
+              

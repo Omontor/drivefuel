@@ -83,7 +83,7 @@
                                 @endcan
 
                                 @can('questionarie_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.questionaries.edit', $questionarie->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.questionaries.edit', $questionarie->id,$questionarie->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
