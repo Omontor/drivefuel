@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+    Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
+    Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
     Route::resource('users', 'UsersController');
 
     // User Alerts
@@ -88,6 +90,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Event
     Route::delete('events/destroy', 'EventController@massDestroy')->name('events.massDestroy');
+    Route::post('events/parse-csv-import', 'EventController@parseCsvImport')->name('events.parseCsvImport');
+    Route::post('events/process-csv-import', 'EventController@processCsvImport')->name('events.processCsvImport');
     Route::resource('events', 'EventController');
 
     // Group
@@ -96,14 +100,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Location
     Route::delete('locations/destroy', 'LocationController@massDestroy')->name('locations.massDestroy');
+    Route::post('locations/parse-csv-import', 'LocationController@parseCsvImport')->name('locations.parseCsvImport');
+    Route::post('locations/process-csv-import', 'LocationController@processCsvImport')->name('locations.processCsvImport');
     Route::resource('locations', 'LocationController');
 
     // Checkin
     Route::delete('checkins/destroy', 'CheckinController@massDestroy')->name('checkins.massDestroy');
+    Route::post('checkins/parse-csv-import', 'CheckinController@parseCsvImport')->name('checkins.parseCsvImport');
+    Route::post('checkins/process-csv-import', 'CheckinController@processCsvImport')->name('checkins.processCsvImport');
     Route::resource('checkins', 'CheckinController');
 
     // Checkout
     Route::delete('checkouts/destroy', 'CheckoutController@massDestroy')->name('checkouts.massDestroy');
+    Route::post('checkouts/parse-csv-import', 'CheckoutController@parseCsvImport')->name('checkouts.parseCsvImport');
+    Route::post('checkouts/process-csv-import', 'CheckoutController@processCsvImport')->name('checkouts.processCsvImport');
     Route::resource('checkouts', 'CheckoutController');
 
     // Blog
@@ -122,6 +132,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Answer
     Route::delete('answers/destroy', 'AnswerController@massDestroy')->name('answers.massDestroy');
+    Route::post('answers/parse-csv-import', 'AnswerController@parseCsvImport')->name('answers.parseCsvImport');
+    Route::post('answers/process-csv-import', 'AnswerController@processCsvImport')->name('answers.processCsvImport');
     Route::resource('answers', 'AnswerController');
 
     // Witness
