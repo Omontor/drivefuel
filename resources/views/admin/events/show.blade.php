@@ -55,6 +55,24 @@
                             {{ $event->route->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.event.fields.users') }}
+                        </th>
+                        <td>
+                            @foreach($event->users as $key => $users)
+                                <span class="label label-info">{{ $users->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.event.fields.location') }}
+                        </th>
+                        <td>
+                            {{ $event->location->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -66,22 +84,6 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#event_locations" role="tab" data-toggle="tab">
-                {{ trans('cruds.location.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="event_locations">
-            @includeIf('admin.events.relationships.eventLocations', ['locations' => $event->eventLocations])
-        </div>
-    </div>
-</div>
+
 
 @endsection

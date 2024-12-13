@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Models\Checkin;
+use App\Models\Checkout;
+
 
 class HomeController
 {
@@ -423,7 +426,7 @@ class HomeController
         $chart13 = new LaravelChart($settings13);
 
         $settings14 = [
-            'chart_title'           => 'Últimos testigos',
+            'chart_title'           => 'Últimos Testigos enviados',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Witnesspost',
@@ -435,7 +438,9 @@ class HomeController
             'column_class'          => 'col-md-12',
             'entries_number'        => '10',
             'fields'                => [
-                'images' => '',
+                'witness' => 'type',
+                'images'  => '',
+                'user'    => 'name',
             ],
             'translation_key' => 'witnesspost',
         ];
@@ -451,6 +456,41 @@ class HomeController
             $settings14['fields'] = [];
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13', 'settings14'));
+        $settings15 = [
+            'chart_title'           => 'Últimas Noticias',
+            'chart_type'            => 'latest_entries',
+            'report_type'           => 'group_by_date',
+            'model'                 => 'App\Models\Blog',
+            'group_by_field'        => 'created_at',
+            'group_by_period'       => 'day',
+            'aggregate_function'    => 'count',
+            'filter_field'          => 'created_at',
+            'group_by_field_format' => 'm/d/Y H:i:s',
+            'column_class'          => 'col-md-12',
+            'entries_number'        => '10',
+            'fields'                => [
+                'id'          => '',
+                'title'       => '',
+                'created_at'  => '',
+            ],
+            'translation_key' => 'blog',
+        ];
+
+        $settings15['data'] = [];
+        if (class_exists($settings15['model'])) {
+            $settings15['data'] = $settings15['model']::latest()
+                ->take($settings15['entries_number'])
+                ->get();
+        }
+
+        if (!array_key_exists('fields', $settings15)) {
+            $settings15['fields'] = [];
+        }
+
+        $checkins = Checkin::all();
+        $checkouts = Checkout::all();
+
+
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'settings5', 'settings6', 'settings7', 'settings8', 'chart9', 'chart10', 'settings11', 'settings12', 'chart13', 'settings14', 'settings15', 'checkins', 'checkouts'));
     }
 }

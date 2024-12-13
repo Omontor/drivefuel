@@ -21,6 +21,10 @@ class StoreQuestionarieRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'project_id' => [
+                'required',
+                'integer',
+            ],
         ];
     }
 }
